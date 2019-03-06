@@ -70,8 +70,8 @@ public class MiGrafo{
                     // crear uno (v2,v1,4) esto para saber 
                 }    
 	    }
-        System.out.println("/*/*/*/ "+ vertices[1].getVecino(0).getVertice1());
-       System.out.println("/*/*/*/ "+ vertices[1].getVecino(1).getVertice2());
+       // System.out.println("/*/*/*/ "+ vertices[1].getVecino(0).getVertice1());
+       //System.out.println("/*/*/*/ "+ vertices[1].getVecino(1).getVertice2());
         //System.out.println("/*/*/*/ "+ vertices[1].getVecino(2).getVertice2());
 /*
 	for(Arista arista : vertices[2].getVecinos())
