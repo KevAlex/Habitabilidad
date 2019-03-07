@@ -1,3 +1,5 @@
+La variable con de expansion es para empezar a bajarle el valor
+al nivel de ruido (lvl ruido) y al peso de las aristas a medida que el ruido pasa por los otros nodos
 package habitable;
 
 import java.util.ArrayList;
