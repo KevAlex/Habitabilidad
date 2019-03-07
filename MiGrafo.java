@@ -1,5 +1,3 @@
-La variable con de expansion es para empezar a bajarle el valor
-al nivel de ruido (lvl ruido) y al peso de las aristas a medida que el ruido pasa por los otros nodos
 package habitable;
 
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class MiGrafo {
                 System.out.println("/*/*/*/*Vertice de entrada: " + vertices[i]);
             }
         }
-        
+        try{
         for (Arista arista : vertices[a].getVecinos()) {
             //arista.getVertice2().getEtiqueta().equals(Character.toString(etiquetas[2]))
             System.out.println("||||||  " + vertices[a]);
@@ -46,8 +44,12 @@ public class MiGrafo {
                 miGrafo.eliminarArista(arista);
                 miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), (ruido-con)); 
                 System.out.println("// " + arista.getVecinoDe(vertices[a]) + " / " + con);
-                lvlRuido(arista.getVecinoDe(vertices[a]), p);
+                //lvlRuido(arista.getVecinoDe(vertices[a]), p);
                 //expansion(arista.getVecinoDe(vertices[a]), arista.getVecinoDe(vertices[a]).getRuido() , (con+1)); //Recursividad
+                if(con==0){
+                    expansion(arista.getVecinoDe(vertices[a]), 3 , (con+1));
+                }
+                
             }
         }
         System.out.println("Modificacion de aristas");
@@ -59,6 +61,9 @@ public class MiGrafo {
                 System.out.println(vertices[i].getVecino(k));
             }
         }
+        }catch(NullPointerException e){
+            System.out.println("Error " + e.getMessage()); 
+       }
     }
     public int lvlRuido(Vertice receptor, int peso){
         int ruido=0;
