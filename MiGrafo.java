@@ -25,32 +25,30 @@ public class MiGrafo {
     char[] etiquetas = {'A', 'B', 'C', 'D', 'E', 'F'};
     int i;
     boolean sobreescribe = true;
-
-    public void expansion(Vertice emisor, int ruido, int con) {
-        int p = 5;
+    int p = 5;
         int a =0;
+    public void expansion(Vertice emisor, int ruido, int con) {
+        
         for (i = 0; i < vertices.length; i++) {
             if(emisor.equals(vertices[i])){
                 a=i;
-                System.out.println("Vertice es: " + vertices[i]);
+                System.out.println("/*/*/*/*Vertice de entrada: " + vertices[i]);
             }
-//            System.out.println(vertices[i]);
-//             
         }
+        
         for (Arista arista : vertices[a].getVecinos()) {
             //arista.getVertice2().getEtiqueta().equals(Character.toString(etiquetas[2]))
-            System.out.println("//" + arista.getVecinoDe(vertices[a]));
+            System.out.println("||||||  " + vertices[a]);
             if (arista.getPeso() == 1) {
                 //System.out.println("dd " + arista.getVecinoDe(vertices[1]));
                 miGrafo.eliminarArista(arista);
-                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), p);
-                p = p + 3;
+                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), p); //antes tengo que enviarlo a la fun 2
+                System.out.println("// " + arista.getVecinoDe(vertices[a]) + " / " + con);
+                //expansion(arista.getVecinoDe(vertices[a]), lvlRuido(arista.getVecinoDe(vertices[a]), p), (con+1));
             }
         }
-        
-        
         System.out.println("Luego de eliminar queda");
-        vertices[3].setRuido(5);
+        //vertices[3].setRuido(5);
         for (i = 0; i < vertices.length; i++) {
             System.out.println(vertices[i]);
 //            System.out.println("ruido " + vertices[i].getRuido());
@@ -58,6 +56,12 @@ public class MiGrafo {
                 System.out.println(vertices[i].getVecino(k));
             }
         }
+    }
+    public int lvlRuido(Vertice receptor, int peso){
+        int ruido=0;
+        
+        receptor.setRuido(ruido+(peso-1));
+        return ruido;
     }
 
     public void inicio() {
@@ -104,3 +108,4 @@ public class MiGrafo {
 //                }
 //	    }
 //        }
+
