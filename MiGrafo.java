@@ -1,5 +1,3 @@
-La variable con de expansion es para empezar a bajarle el valor
-al nivel de ruido (lvl ruido) y al peso de las aristas a medida que el ruido pasa por los otros nodos
 package habitable;
 
 import java.util.ArrayList;
@@ -24,11 +22,13 @@ public class MiGrafo {
 
     Grafo miGrafo = new Grafo();
     Vertice[] vertices = new Vertice[6];
+    Vertice[] veci = new Vertice[5];
     char[] etiquetas = {'A', 'B', 'C', 'D', 'E', 'F'};
     int i;
     boolean sobreescribe = true;
     int p = 5;
     int a =0;
+    int g =0;
     public void expansion(Vertice emisor, int ruido, int con) {
         
         for (i = 0; i < vertices.length; i++) {
@@ -42,19 +42,36 @@ public class MiGrafo {
             //arista.getVertice2().getEtiqueta().equals(Character.toString(etiquetas[2]))
             System.out.println("||||||  " + vertices[a]);
             if (arista.getPeso() == 1) {
-                //System.out.println("dd " + arista.getVecinoDe(vertices[1]));
+                //System.out.println("dd " + arista.getVecinoDe(vertices[a]));
+                veci[g] = arista.getVecinoDe(vertices[a]);
+                g++;
                 miGrafo.eliminarArista(arista);
                 miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), (ruido-con)); 
                 System.out.println("// " + arista.getVecinoDe(vertices[a]) + " / " + con);
                 //lvlRuido(arista.getVecinoDe(vertices[a]), p);
                 //expansion(arista.getVecinoDe(vertices[a]), arista.getVecinoDe(vertices[a]).getRuido() , (con+1)); //Recursividad
-                if(con==0){
-                    expansion(arista.getVecinoDe(vertices[a]), 3 , (con+1));
-                }
-                
-            }
+             }
+            
         }
-        System.out.println("Modificacion de aristas");
+            System.out.println("el emisor tiene "+ g + " Numero de vecinos");
+        for (int i =0; i<3 ;i++){
+                System.out.println("val///// " + veci[i]);
+                //System.out.println("vecinos " + veci[i].getVecinos());
+                for (Arista arista: veci[i].getVecinos()){
+                    //System.out.println("2 ||///|| "+ veci[i]);
+                    if (g<5){
+                    veci[g] = arista.getVecinoDe(veci[i]); 
+                    g++;
+                    }
+                }
+            }
+            System.out.println("Vecotr vecinos: ");
+            for(int i = 0; i<veci.length; i++){
+                System.out.println("***** " + veci[i]);
+            }
+        System.out.println("Modificacion de aristas ");
+        
+//            
         //vertices[3].setRuido(5);
         for (i = 0; i < vertices.length; i++) {
             System.out.println(vertices[i]);
@@ -66,6 +83,7 @@ public class MiGrafo {
         }catch(NullPointerException e){
             System.out.println("Error " + e.getMessage()); 
        }
+    
     }
     public int lvlRuido(Vertice receptor, int peso){
         int ruido=0;
