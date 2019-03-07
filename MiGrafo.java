@@ -45,8 +45,8 @@ public class MiGrafo {
                 //System.out.println("dd " + arista.getVecinoDe(vertices[a]));
                 veci[g] = arista.getVecinoDe(vertices[a]);
                 g++;
-                miGrafo.eliminarArista(arista);
-                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), (ruido-con)); 
+//                miGrafo.eliminarArista(arista);
+//                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), (ruido-con)); 
                 System.out.println("// " + arista.getVecinoDe(vertices[a]) + " / " + con);
                 //lvlRuido(arista.getVecinoDe(vertices[a]), p);
                 //expansion(arista.getVecinoDe(vertices[a]), arista.getVecinoDe(vertices[a]).getRuido() , (con+1)); //Recursividad
@@ -54,7 +54,7 @@ public class MiGrafo {
             
         }
             System.out.println("el emisor tiene "+ g + " Numero de vecinos");
-        for (int i =0; i<3 ;i++){
+        for (int i =0; i<3 ;i++){       //cambiar el valor de 3 veci.length
                 System.out.println("val///// " + veci[i]);
                 //System.out.println("vecinos " + veci[i].getVecinos());
                 for (Arista arista: veci[i].getVecinos()){
@@ -65,10 +65,22 @@ public class MiGrafo {
                     }
                 }
             }
-            System.out.println("Vecotr vecinos: ");
+            System.out.println("Vector vecinos: ");
             for(int i = 0; i<veci.length; i++){
                 System.out.println("***** " + veci[i]);
             }
+            for (int i =0; i<veci.length;i++){
+                System.out.println("Vertice en analisis "+ veci[i]);
+                for(Arista arista: veci[i].getVecinos()){
+                    if(arista.getPeso()==1){
+                        System.out.println("fase 3 conexion con: "+  arista.getVecinoDe(veci[i]));
+                        miGrafo.eliminarArista(arista);
+                        miGrafo.insertarArista(vertices[i], arista.getVecinoDe(veci[i]), (ruido-con)); 
+                    }
+                    System.out.println("-----------------------------------------------------");
+                }
+            }
+            
         System.out.println("Modificacion de aristas ");
         
 //            
