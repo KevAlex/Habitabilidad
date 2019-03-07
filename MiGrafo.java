@@ -3,123 +3,104 @@ package habitable;
 import java.util.ArrayList;
 
 /**
- * En esta clase se demuestra como funciona la clase Grafo
- * Comenzaremos creando un objeto Grafo vacío.
- * Se crean 6 vértices: V{A, B, C, D, E, F} y sus adyacencias insertando
- * aristas de tal forma que {A, B, C} y {D, E, F} forman dos triángulos isósceles,
- * a continuación, el vértice A se une con el vértice D; y el C con el E; de esta forma
- * quedan comunicados ambos triángulos.   
+ * En esta clase se demuestra como funciona la clase Grafo Comenzaremos creando
+ * un objeto Grafo vacío. Se crean 6 vértices: V{A, B, C, D, E, F} y sus
+ * adyacencias insertando aristas de tal forma que {A, B, C} y {D, E, F} forman
+ * dos triángulos isósceles, a continuación, el vértice A se une con el vértice
+ * D; y el C con el E; de esta forma quedan comunicados ambos triángulos.
  */
-public class MiGrafo{
-    public void inicio (){
-        Grafo miGrafo = new Grafo();
-        
-	Vertice [] vertices = new Vertice[6];
-	char [] etiquetas = {'A','B','C','D','E','F'};
-	int i = 0;
-	boolean sobreescribe = true;
-	
-	for(i = 0; i < vertices.length; i++)
-	    {
-	    	vertices[i] = new Vertice(Character.toString(etiquetas[i]));
-                vertices[i].setRuido(0);
-	     	//System.out.println(vertices[i]);	    	
-	    }
-            
-	System.out.println();
+public class MiGrafo {
 
-	miGrafo.insertarArista(vertices[0], vertices[1], 3); // A -> B
-	//miGrafo.insertarArista(vertices[0], vertices[2], 3); // A -> C
-	miGrafo.insertarArista(vertices[1], vertices[2], 0); // B -> C
-	//miGrafo.insertarArista(vertices[1], vertices[3], 4); // B -> D
-        
-	//miGrafo.insertarArista(vertices[0], vertices[1], 5);
-	//miGrafo.insertarArista(vertices[3], vertices[4], 3); // D -> E
-	//miGrafo.insertarArista(vertices[3], vertices[5], 3); // D -> F
-	//miGrafo.insertarArista(vertices[4], vertices[5], 1); // E -> F
-	//miGrafo.insertarArista(vertices[0], vertices[3], 3); // A -> D
-	//miGrafo.insertarArista(vertices[2], vertices[4], 2); // C -> E
+    public static void main(String[] args) {
+        MiGrafo eje = new MiGrafo();
+        Vertice emisor = new Vertice("B");
+        emisor.setRuido(50);
+        eje.inicio();
 
-	//Sacamos las adyacencias de cada vértice
-	for(i = 0; i < vertices.length; i++)
-	    {
-		System.out.println(vertices[i] ); // Muestra el vertice
-               // System.out.println("jiu");
-		for( int k = 0; k < vertices[i].getContarVecinos(); k++){
-		    System.out.println(vertices[i].getVecino(k)); // Muestra los vecinos de cada vertice[i]
-                }
+        eje.expansion(emisor, emisor.getRuido(), 0);
+    }
+
+    Grafo miGrafo = new Grafo();
+    Vertice[] vertices = new Vertice[6];
+    char[] etiquetas = {'A', 'B', 'C', 'D', 'E', 'F'};
+    int i;
+    boolean sobreescribe = true;
+
+    public void expansion(Vertice emisor, int ruido, int con) {
+        int p = 5;
+        int a =0;
+        for (i = 0; i < vertices.length; i++) {
+            if(emisor.equals(vertices[i])){
+                a=i;
+                System.out.println("Vertice es: " + vertices[i]);
             }
-
-	//Eliminamos las adyacencias entre B <-> C
-	
-	for(Arista arista : vertices[1].getVecinos()){
-                //System.out.println(vertices[1].getEtiqueta()); // me permite saber que nodo es
-                //System.out.println(vertices[1].getVecinos()); // me permite saber cuales son sus vecinos
-                System.out.println("////");
-                System.out.println(arista.getVertice2().getEtiqueta());
-                System.out.println("valor");
-                System.out.println(arista.getPeso()); // me da el valor de la arista relacionada con la etiqueta me sirve para condicional
-                System.out.println("***");
-                //arista.getVertice2().getEtiqueta().equals("C") // obtengo.....
-		if(arista.getPeso() == 0 ){
-                    System.out.println("entra");
-		    miGrafo.eliminarArista(arista);
-                    miGrafo.insertarArista(vertices[1], vertices[2], 7); 
-                  //  miGrafo.insertarArista(vertices[1], vertices[1].getVecino(1) , 7); como hago para modificar el valor de la arista que conecta al vertice[1] con sus vecinos?
-                    // no es lo mismo crear un vertice (v1, v2, 4) que
-                    // crear uno (v2,v1,4) esto para saber 
-                }    
-	    }
-       // System.out.println("/*/*/*/ "+ vertices[1].getVecino(0).getVertice1());
-       //System.out.println("/*/*/*/ "+ vertices[1].getVecino(1).getVertice2());
-        //System.out.println("/*/*/*/ "+ vertices[1].getVecino(2).getVertice2());
-/*
-	for(Arista arista : vertices[2].getVecinos())
-	    {
-		if(arista.getVertice2().getEtiqueta().equals("B"))
-		    miGrafo.eliminarArista(arista);
-	    }
-
-	//Y las adyacencias entre E <-> F
-	
-	for(Arista arista : vertices[4].getVecinos())
-	    {
-		if(arista.getVertice2().getEtiqueta().equals("E"))
-		    miGrafo.eliminarArista(arista);
-	    }
-
-	for(Arista arista : vertices[5].getVecinos())
-	    {
-		if(arista.getVertice2().getEtiqueta().equals("F"))
-		    miGrafo.eliminarArista(arista);
-	    }
-	
-	
-	System.out.println("Los vertices {B, C} tienen adyacencia: "
-			   + miGrafo.contieneLaArista(new Arista( vertices[1], vertices[2] ) ) );
-
-	System.out.println("Los vertices {E, F} tienen adyacencia: "
-			   + miGrafo.contieneLaArista(new Arista (vertices[4], vertices[5] ) ) );
-
-	*/
-	//Sacamos nuevamente las adyacencias y los triángulos originales han perdido sus bases
+//            System.out.println(vertices[i]);
+//             
+        }
+        for (Arista arista : vertices[a].getVecinos()) {
+            //arista.getVertice2().getEtiqueta().equals(Character.toString(etiquetas[2]))
+            System.out.println("//" + arista.getVecinoDe(vertices[a]));
+            if (arista.getPeso() == 1) {
+                //System.out.println("dd " + arista.getVecinoDe(vertices[1]));
+                miGrafo.eliminarArista(arista);
+                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), p);
+                p = p + 3;
+            }
+        }
+        
+        
         System.out.println("Luego de eliminar queda");
         vertices[3].setRuido(5);
-        
-	for(i = 0; i < vertices.length; i++){
-            
-	     	System.out.println(vertices[i] );
-	    	System.out.println("ruido "+vertices[i].getRuido());
-	    	for( int k = 0; k < vertices[i].getContarVecinos(); k++){
-	    	    System.out.println(vertices[i].getVecino(k));
-                }
-	    }
-        
+        for (i = 0; i < vertices.length; i++) {
+            System.out.println(vertices[i]);
+//            System.out.println("ruido " + vertices[i].getRuido());
+            for (int k = 0; k < vertices[i].getContarVecinos(); k++) {
+                System.out.println(vertices[i].getVecino(k));
+            }
+        }
     }
-    
-    
-    public static void main (String [] args){
-	MiGrafo eje = new MiGrafo();
-        eje.inicio();
+
+    public void inicio() {
+
+        for (i = 0; i < vertices.length; i++) {
+            vertices[i] = new Vertice(Character.toString(etiquetas[i]));
+            vertices[i].setRuido(0);
+            //System.out.println(vertices[i]);	    	
+        }
+        System.out.println();
+//miGrafo.insertarArista(ver[0][0], ver[0][1],5); // a b
+        // miGrafo.insertarArista(ver[0][0], ver[1][0],3); // a g
+        miGrafo.insertarArista(vertices[0], vertices[1], 1); // A -> B
+        miGrafo.insertarArista(vertices[0], vertices[3], 1); // A -> D
+        miGrafo.insertarArista(vertices[0], vertices[4], 1); // A -> E
+        miGrafo.insertarArista(vertices[1], vertices[2], 1); // B -> C
+        miGrafo.insertarArista(vertices[1], vertices[5], 1); // B -> F
+        miGrafo.insertarArista(vertices[4], vertices[5], 1); // E -> F
+        miGrafo.insertarArista(vertices[2], vertices[3], 1); // C-> D
+
+        //Sacamos las adyacencias de cada vértice
+//        for (i = 0; i < vertices.length; i++) {
+////            System.out.println(vertices[i]); // Muestra el vertice
+//            for (int k = 0; k < vertices[i].getContarVecinos(); k++) {
+//                System.out.println(vertices[i].getVecino(k)); // Muestra los vecinos de cada vertice[i]
+//                
+//            }
+//        }
+
     }
+
 }
+
+//        for(i =0; i < vertices.length ;i++){ Con esto recorro todos los vertices y les cambio su valor a las aristas 
+//            for(Arista arista : vertices[i].getVecinos())
+//	    { 
+//                //arista.getVertice2().getEtiqueta().equals(Character.toString(etiquetas[2]))
+////                System.out.println("Veci " + arista.getVecinoDe(vertices[i]));
+//		if(  arista.getPeso() == 1){
+//                    //System.out.println("dd " + arista.getVecinoDe(vertices[1]));
+//		    miGrafo.eliminarArista(arista);
+//                    miGrafo.insertarArista(vertices[i], arista.getVecinoDe(vertices[i]), p);
+//                    p=p+3;
+//                }
+//	    }
+//        }
