@@ -14,7 +14,7 @@ public class MiGrafo {
     public static void main(String[] args) {
         MiGrafo eje = new MiGrafo();
         Vertice emisor = new Vertice("B");
-        emisor.setRuido(50);
+        emisor.setRuido(5);
         eje.inicio();
 
         eje.expansion(emisor, emisor.getRuido(), 0);
@@ -26,7 +26,7 @@ public class MiGrafo {
     int i;
     boolean sobreescribe = true;
     int p = 5;
-        int a =0;
+    int a =0;
     public void expansion(Vertice emisor, int ruido, int con) {
         
         for (i = 0; i < vertices.length; i++) {
@@ -42,16 +42,17 @@ public class MiGrafo {
             if (arista.getPeso() == 1) {
                 //System.out.println("dd " + arista.getVecinoDe(vertices[1]));
                 miGrafo.eliminarArista(arista);
-                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), p); //antes tengo que enviarlo a la fun 2
+                miGrafo.insertarArista(vertices[a], arista.getVecinoDe(vertices[a]), (ruido-con)); 
                 System.out.println("// " + arista.getVecinoDe(vertices[a]) + " / " + con);
-                //expansion(arista.getVecinoDe(vertices[a]), lvlRuido(arista.getVecinoDe(vertices[a]), p), (con+1));
+                lvlRuido(arista.getVecinoDe(vertices[a]), p);
+                //expansion(arista.getVecinoDe(vertices[a]), arista.getVecinoDe(vertices[a]).getRuido() , (con+1)); //Recursividad
             }
         }
-        System.out.println("Luego de eliminar queda");
+        System.out.println("Modificacion de aristas");
         //vertices[3].setRuido(5);
         for (i = 0; i < vertices.length; i++) {
             System.out.println(vertices[i]);
-//            System.out.println("ruido " + vertices[i].getRuido());
+            System.out.println("ruido " + vertices[i].getRuido());
             for (int k = 0; k < vertices[i].getContarVecinos(); k++) {
                 System.out.println(vertices[i].getVecino(k));
             }
@@ -64,6 +65,10 @@ public class MiGrafo {
         return ruido;
     }
 
+    
+    
+    
+    
     public void inicio() {
 
         for (i = 0; i < vertices.length; i++) {
@@ -108,4 +113,3 @@ public class MiGrafo {
 //                }
 //	    }
 //        }
-
